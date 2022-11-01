@@ -18,4 +18,20 @@ client3 = Client.create(
     manager: "Kevin Collins"
 )
 
+puts "🌱 Seeding tasks..."
+
+task1 = Task.create(
+    description: "Create a social media marketing plan through LinkedIn",
+    hours: "3 hours",
+    pay: 30,
+    due_date: Date.new(2022,11,5)
+)
+
+task2 = Task.create(
+    description: "Add a contact page to the home page to redirect the user",
+    hours: "6 hours",
+    pay: 45,
+    due_date: Date.new(2022,12,21)
+)
+
 puts "✅ Done seeding!"
