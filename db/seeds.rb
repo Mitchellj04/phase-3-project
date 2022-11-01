@@ -1,3 +1,8 @@
+Project.destroy_all
+Client.destroy_all
+Task.destroy_all
+
+
 puts "🌱 Seeding clients..."
 
 client1 = Client.create(
@@ -32,6 +37,25 @@ task2 = Task.create(
     hours: "6 hours",
     pay: 45,
     due_date: Date.new(2022,12,21)
+)
+
+puts "🌱 Seeding projects..."
+
+project1 = Project.create(
+    name: "UI web development",
+    timeframe: 3,
+    category: "frontend",
+    client_id: client1.id,
+    task_id: task2.id
+
+)
+
+project2 = Project.create(
+    name: "Deltek Marketing",
+    timeframe: 6,
+    category: "social media",
+    client_id: client2.id,
+    task_id: task1.id
 )
 
 puts "✅ Done seeding!"
