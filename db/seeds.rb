@@ -39,6 +39,22 @@ task2 = Task.create(
     due_date: Date.new(2022,12,21)
 )
 
+task3 = Task.create(
+    description: "Create a react website",
+    hours: "12 hours",
+    pay: 45,
+    due_date: Date.new(2022,12,21)
+)
+
+task4 = Task.create(
+    description: "Desgin React website",
+    hours: "10 hours",
+    pay: 45,
+    due_date: Date.new(2023,1,25)
+
+)
+
+
 puts "🌱 Seeding projects..."
 
 project1 = Project.create(
@@ -56,6 +72,14 @@ project2 = Project.create(
     category: "social media",
     client_id: client2.id,
     task_id: task1.id
+)
+
+project3 = Project.create(
+    name: "Collins Website",
+    timeframe: 7,
+    category: "UI/UX",
+    client_id: client3.id,
+    task_id: task3.id,
 )
 
 puts "✅ Done seeding!"

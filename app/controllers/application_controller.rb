@@ -11,8 +11,13 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/projects/:id" do 
-    find_project.to_json(include: [client: {only: [:name]}, task: {only: [:description, :due_date]}])
+    project = Project.find_by_id(params[:id])
+    project.to_json(include: [:task])
   end
+
+  #get "/projects/:id" do 
+   # find_project.to_json(include: [client: {only: [:name]}, task: {only: [:description, :due_date]}])
+  #end
 
 
   post "/projects" do 
@@ -24,8 +29,9 @@ class ApplicationController < Sinatra::Base
 
   patch "/projects/:id" do 
     find_project
-    @project.update(params)
-    @project.to_json(include: [:task, :client])
+    if @project.update(params)
+    @project.to_json
+    end
   end
 
   delete "/projects/:id" do 
@@ -78,6 +84,28 @@ class ApplicationController < Sinatra::Base
     clients = Client.all.to_json(include: [:tasks])
   end
 
+  post "/clients" do 
+    client = Client.new(params)
+    if client.save 
+      client.to_json
+    end
+  end
+
+  patch "/clients/:id" do 
+    find_client
+    if @client.update
+      @client.to_json
+    end
+  end
+
+  delete "/clients/:id" do 
+    find_client
+    if @client
+      @client.destroy
+      @client.to_json
+    end
+  end
+
 
   #DRY Methods
   private 
@@ -89,6 +117,9 @@ class ApplicationController < Sinatra::Base
       @task = Task.find_by_id(params[:id])
     end
 
+    def find_client
+      @client = Client.find_by_id(params[:id])
+    end
 
 end
 
