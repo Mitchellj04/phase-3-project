@@ -1,7 +1,7 @@
 
 class Task < ActiveRecord::Base
 
-    has_many :projects
-    has_many :client, through: :projects 
+    belongs_to :client
+    belongs_to :project
 
 end

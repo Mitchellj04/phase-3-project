@@ -7,12 +7,12 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/projects" do 
-    project = Project.all.to_json(include: [task: {only: [:id, :description, :hours, :pay, :due_date]}, client: {only: [:name, :contact, :manager]}])
+    project = Project.all.to_json(include: [tasks: {only: [:id, :description, :hours, :pay, :due_date]}, clients: {only: [:id, :name, :contact, :manager]}])
   end
 
   get "/projects/:id" do 
     project = Project.find_by_id(params[:id])
-    project.to_json(include: [:task])
+    project.to_json(include: [:tasks])
   end
 
   #get "/projects/:id" do 
@@ -45,11 +45,11 @@ class ApplicationController < Sinatra::Base
 
   #Task requests 
   get "/tasks" do 
-    tasks = Task.all.to_json
+    tasks = Task.all.to_json(include: [project: {only: [:id, :name, :timeframe, :category]}, client: {only: [:id, :name, :contact, :manager]}])
   end
 
   get "/tasks/:id" do 
-    find_task.to_json(include: [:projects, :client])
+    find_task.to_json(include: [:project, :client])
   end
 
   post "/tasks" do 
@@ -61,7 +61,7 @@ class ApplicationController < Sinatra::Base
 
   patch "/tasks/:id" do 
     find_task
-    if @task.update
+    if @task.update(params)
       @task.to_json
       #error message else
     end

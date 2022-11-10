@@ -1,4 +1,4 @@
-class Clients < ActiveRecord::Migration[6.1]
+class CreateClients < ActiveRecord::Migration[6.1]
   def change
     create_table :clients do |t|
       t.string :name
@@ -6,7 +6,5 @@ class Clients < ActiveRecord::Migration[6.1]
       t.string :manager 
       t.timestamps
     end
-
-
   end
 end

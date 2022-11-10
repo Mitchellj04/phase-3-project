@@ -1,7 +1,7 @@
 
 class Client < ActiveRecord::Base
 
-    has_many :projects 
-    has_many :tasks, through: :projects
+    has_many :projects, through: :tasks
+    has_many :tasks
 
 end
