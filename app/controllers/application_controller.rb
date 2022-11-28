@@ -1,13 +1,9 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
-  # Add your routes here
-  get "/" do
-    { message: "Good luck with your project!" }.to_json
-  end
 
   get "/projects" do 
-    project = Project.all.to_json(include: [tasks: {only: [:id, :description, :hours, :pay, :due_date]}, clients: {only: [:id, :name, :contact, :manager]}])
+    project = Project.all.to_json(include: [tasks: {only: [:id, :description, :hours, :pay, :due_date]}, client: {only: [:id, :name, :contact, :manager]}])
   end
 
   get "/projects/:id" do 
@@ -81,7 +77,7 @@ class ApplicationController < Sinatra::Base
   #Client requests 
 
   get "/clients" do 
-    clients = Client.all.to_json(include: [:tasks])
+    clients = Client.all.to_json
   end
 
   post "/clients" do 
