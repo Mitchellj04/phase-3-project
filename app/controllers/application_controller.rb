@@ -11,15 +11,11 @@ class ApplicationController < Sinatra::Base
     project.to_json(include: [:tasks])
   end
 
-  #get "/projects/:id" do 
-   # find_project.to_json(include: [client: {only: [:name]}, task: {only: [:description, :due_date]}])
-  #end
-
-
   post "/projects" do 
     project = Project.new(params)
     if project.save 
-      project.to_json
+      project.to_json(include: [:tasks, :client])
+       #error message else
     end
   end
 
@@ -27,6 +23,7 @@ class ApplicationController < Sinatra::Base
     find_project
     if @project.update(params)
     @project.to_json
+     #error message else
     end
   end
 
@@ -35,15 +32,12 @@ class ApplicationController < Sinatra::Base
     if @project
       @project.destroy
       @project.to_json
+       #error message else
     end
   end
 
 
   #Task requests 
-  get "/tasks" do 
-    tasks = Task.all.to_json(include: [project: {only: [:id, :name, :timeframe, :category]}, client: {only: [:id, :name, :contact, :manager]}])
-  end
-
   get "/tasks/:id" do 
     find_task.to_json(include: [:project, :client])
   end
@@ -52,6 +46,7 @@ class ApplicationController < Sinatra::Base
     tasks = Task.new(params)
     if tasks.save
       tasks.to_json
+       #error message else
     end
   end
 
@@ -68,6 +63,7 @@ class ApplicationController < Sinatra::Base
     if @task 
       @task.destroy
       @task.to_json
+       #error message else
     end
   end 
 
@@ -76,14 +72,11 @@ class ApplicationController < Sinatra::Base
 
   #Client requests 
 
-  get "/clients" do 
-    clients = Client.all.to_json
-  end
-
   post "/clients" do 
     client = Client.new(params)
     if client.save 
       client.to_json
+       #error message else
     end
   end
 
@@ -91,6 +84,7 @@ class ApplicationController < Sinatra::Base
     find_client
     if @client.update
       @client.to_json
+       #error message else
     end
   end
 
@@ -99,6 +93,7 @@ class ApplicationController < Sinatra::Base
     if @client
       @client.destroy
       @client.to_json
+       #error message else
     end
   end
 
